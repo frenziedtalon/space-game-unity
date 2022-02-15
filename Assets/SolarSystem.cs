@@ -15,6 +15,7 @@ public class SolarSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CreateSkyBox();
         CreateSolarSystem();
 
         celestials = GameObject.FindGameObjectsWithTag(tagCelestial);
@@ -172,4 +173,17 @@ public class SolarSystem : MonoBehaviour
         var pluto = CreateCelestialObject("Pluto", 0.01314192f, 0.001186f, CelestialObjectType.Planet, 5906.37627208103f, 0.24883f, 0.29914960832f, 1.98548656f, 1.9250982f, 0f);
     }
 
+    void CreateSkyBox()
+    {
+        var shader = Shader.Find("Skybox/6 Sided");
+        var material = new Material(shader);
+        material.SetTexture("_FrontTex", Resources.Load<Texture2D>("Skybox/SpaceSkybox01/skybox_pz")); // Front [+Z]
+        material.SetTexture("_BackTex", Resources.Load<Texture2D>("Skybox/SpaceSkybox01/skybox_nz")); // Back [-Z]
+        material.SetTexture("_LeftTex", Resources.Load<Texture2D>("Skybox/SpaceSkybox01/skybox_px")); // Left [+X] 
+        material.SetTexture("_RightTex", Resources.Load<Texture2D>("Skybox/SpaceSkybox01/skybox_nx")); // Right [-X] 
+        material.SetTexture("_UpTex", Resources.Load<Texture2D>("Skybox/SpaceSkybox01/skybox_py")); // Up [+Y]
+        material.SetTexture("_DownTex", Resources.Load<Texture2D>("Skybox/SpaceSkybox01/skybox_ny")); // Down[-Y]
+
+        RenderSettings.skybox = material;
+    }
 }

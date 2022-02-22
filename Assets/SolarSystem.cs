@@ -1,5 +1,7 @@
 using Assets;
+using Assets.CelestialObjects;
 using Assets.Factories;
+using Assets.Measurements;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -88,41 +90,12 @@ public class SolarSystem : MonoBehaviour
         switch (type)
         {
             case CelestialObjectType.Star:
-                return CreateStar(name, mass, radius);
+                return CelestialObjectFactory.CreateStar(name, mass, radius);
             case CelestialObjectType.Planet:
                 return CreatePlanet(name, mass, radius, (float)(semiMajorAxis), (float)eccentricity, (float)inclination, (float)argumentOfPeriapsis, (float)longitudeOfAscendingNode, (float)meanAnomalyZero);
             default:
                 throw new NotImplementedException();
         }
-    }
-
-    GameObject CreateStar(
-        string name,
-        float mass, // 10^24 kg
-        float radius // 10^6 km
-    )
-    {
-        var gameObject = new GameObject(name, typeof(SphereCollider))
-        {
-            tag = tagCelestial
-        };
-        var rigidBody = gameObject.AddComponent<Rigidbody>();
-        rigidBody.mass = mass;
-        rigidBody.useGravity = false;
-
-        gameObject.transform.position = Vector3.zero; // Sun is rendered at (0, 0, 0)
-        gameObject.transform.localScale = new Vector3(radius, radius, radius);
-
-        var mesh = gameObject.AddComponent<MeshFilter>();
-        mesh.mesh = MeshFactory.GetUnityPrimitiveMesh(PrimitiveType.Sphere);
-
-        var meshRenderer = gameObject.AddComponent<MeshRenderer>();
-        meshRenderer.material.color = Color.white;
-
-        Shader shader = Shader.Find("Diffuse");
-        meshRenderer.material.shader = shader;
-
-        return gameObject;
     }
 
     GameObject CreatePlanet(

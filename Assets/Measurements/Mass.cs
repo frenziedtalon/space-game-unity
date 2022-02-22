@@ -5,10 +5,12 @@ namespace Assets.Measurements
         private readonly double _kilograms;
         private const double KilogramsInSolarMass = 1.98855 * 10e30;
         private const double KilogramsInEarthMass = 5973.6 * 10e21;
+        private const double KilogramsInScaledUnit = 10e24;
 
         public double Kilograms => _kilograms;
         public double SolarMasses => _kilograms / KilogramsInSolarMass;
         public double EarthMasses => _kilograms / KilogramsInEarthMass;
+        public double ScaledUnits => _kilograms / KilogramsInScaledUnit;
 
         private Mass(double kilograms)
         {

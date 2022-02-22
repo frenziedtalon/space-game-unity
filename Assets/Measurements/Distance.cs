@@ -4,9 +4,12 @@
     {
         private readonly double _kilometres;
         private const double KilometresInAstronomicalUnit = 149597870.691;
+        private const double KilometresInScaledUnit = 10e3;
+
 
         public double Kilometres => _kilometres;
         public double AstronomicalUnits => _kilometres / KilometresInAstronomicalUnit;
+        public double ScaledUnits => _kilometres / KilometresInScaledUnit;
 
         private Distance(double kilometres)
         {

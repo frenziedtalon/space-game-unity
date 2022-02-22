@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Assets.Entities.EntityBase">
+    <Position X="2.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Entities\EntityBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assets.CelestialObjects.CelestialObjectBase">
+    <Position X="2.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAACAAQA=</HashCode>
+      <FileName>Assets\CelestialObjects\CelestialObjectBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.435" />
+  </Class>
+  <Class Name="Star">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQIAAAACiAAgAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\CelestialObjects\Star.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.321" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

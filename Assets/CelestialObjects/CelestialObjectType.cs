@@ -1,4 +1,4 @@
-﻿namespace Assets
+﻿namespace Assets.CelestialObjects
 {
     public enum CelestialObjectType
     {

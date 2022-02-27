@@ -1,8 +1,7 @@
-using Assets;
-using Assets.Factories;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.CelestialObjects;
+using Assets.CelestialObjects.Classes;
+using Assets.CelestialObjects.Factories;
+using Assets.Measurements;
 using UnityEngine;
 
 public class SolarSystem : MonoBehaviour
@@ -12,25 +11,28 @@ public class SolarSystem : MonoBehaviour
 
     GameObject[] celestials;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        //Debug.Log("SolarSystem.Awake() was called");
+
         CreateSkyBox();
         CreateSolarSystem();
 
         celestials = GameObject.FindGameObjectsWithTag(tagCelestial);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //Debug.Log("SolarSystem.Start() was called");
 
         InitialVelocity();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
+        //Debug.Log("SolarSystem.FixedUpdate() was called");
+
         Gravity();
     }
 
@@ -73,104 +75,58 @@ public class SolarSystem : MonoBehaviour
         }
     }
 
-    GameObject CreateCelestialObject(
-        string name,
-        float mass, // 10^24 kg
-        float radius, // 10^6 km
-        CelestialObjectType type,
-        float? semiMajorAxis, // 10^6 km
-        float? eccentricity,
-        float? inclination,
-        float? argumentOfPeriapsis,
-        float? longitudeOfAscendingNode,
-        float? meanAnomalyZero)
-    {
-        switch (type)
-        {
-            case CelestialObjectType.Star:
-                return CreateStar(name, mass, radius);
-            case CelestialObjectType.Planet:
-                return CreatePlanet(name, mass, radius, (float)(semiMajorAxis), (float)eccentricity, (float)inclination, (float)argumentOfPeriapsis, (float)longitudeOfAscendingNode, (float)meanAnomalyZero);
-            default:
-                throw new NotImplementedException();
-        }
-    }
-
-    GameObject CreateStar(
-        string name,
-        float mass, // 10^24 kg
-        float radius // 10^6 km
-    )
-    {
-        var gameObject = new GameObject(name, typeof(SphereCollider))
-        {
-            tag = tagCelestial
-        };
-        var rigidBody = gameObject.AddComponent<Rigidbody>();
-        rigidBody.mass = mass;
-        rigidBody.useGravity = false;
-
-        gameObject.transform.position = Vector3.zero; // Sun is rendered at (0, 0, 0)
-        gameObject.transform.localScale = new Vector3(radius, radius, radius);
-
-        var mesh = gameObject.AddComponent<MeshFilter>();
-        mesh.mesh = MeshFactory.GetUnityPrimitiveMesh(PrimitiveType.Sphere);
-
-        var meshRenderer = gameObject.AddComponent<MeshRenderer>();
-        meshRenderer.material.color = Color.white;
-
-        Shader shader = Shader.Find("Diffuse");
-        meshRenderer.material.shader = shader;
-
-        return gameObject;
-    }
-
-    GameObject CreatePlanet(
-        string name,
-        float mass, // 10^24 kg
-        float radius, // 10^6 km
-        float semiMajorAxis, // 10^6 km
-        float eccentricity,
-        float inclination,
-        float argumentOfPeriapsis,
-        float longitudeOfAscendingNode,
-        float meanAnomalyZero)
-    {
-        var gameObject = new GameObject(name, typeof(SphereCollider))
-        {
-            tag = tagCelestial
-        };
-        var rigidBody = gameObject.AddComponent<Rigidbody>();
-        rigidBody.mass = mass;
-        rigidBody.useGravity = false;
-
-        gameObject.transform.position = new Vector3(semiMajorAxis, 0, 0);
-        gameObject.transform.localScale = new Vector3(radius, radius, radius);
-
-        var mesh = gameObject.AddComponent<MeshFilter>();
-        mesh.mesh = MeshFactory.GetUnityPrimitiveMesh(PrimitiveType.Sphere);
-
-        var meshRenderer = gameObject.AddComponent<MeshRenderer>();
-        meshRenderer.material.color = Color.white;
-
-        Shader shader = Shader.Find("Diffuse");
-        meshRenderer.material.shader = shader;
-
-        return gameObject;
-    }
-
+    // TODO: Move this to a factory
     void CreateSolarSystem()
     {
-        var sol = CreateCelestialObject("Sol", 1988550.00f, 0.6957f, CelestialObjectType.Star, null, null, null, null, null, null);
-        var mercury = CreateCelestialObject("Mercury", 0.358416f, 0.00244f, CelestialObjectType.Planet, 57.90917567f, 0.205635f, 7.0047f, 29.1241f, 48.3313f, 168.6562f);
-        var venus = CreateCelestialObject("Venus", 4.898352f, 0.006052f, CelestialObjectType.Planet, 108.208925506684f, 0.006773f, 3.3946f, 54.891f, 76.6799f, 48.0052f);
-        var earth = CreateCelestialObject("Earth", 5.9736f, 0.006371f, CelestialObjectType.Planet, 149.597870691f, 0.016709f, 0f, 282.9404f, 0f, 356.047f);
-        var mars = CreateCelestialObject("Mars", 0.657096f, 0.00339f, CelestialObjectType.Planet, 227.93663722813f, 0.093405f, 1.8497f, 286.5016f, 49.5574f, 18.6021f);
-        var jupiter = CreateCelestialObject("Jupiter", 1898.41008f, 0.069911f, CelestialObjectType.Planet, 778.412026728313f, 0.048498f, 1.303f, 273.8777f, 100.4542f, 19.895f);
-        var saturn = CreateCelestialObject("Saturn", 568.68672f, 0.058232f, CelestialObjectType.Planet, 1426.72541250233f, 0.055546f, 2.4886f, 339.3939f, 113.6634f, 316.967f);
-        var uranus = CreateCelestialObject("Uranus", 87.21456f, 0.025362f, CelestialObjectType.Planet, 2870.97221979699f, 0.047318f, 0.7733f, 96.6612f, 74.0005f, 142.5905f);
-        var neptune = CreateCelestialObject("Neptune", 102.74592f, 0.024622f, CelestialObjectType.Planet, 4498.25291049344f, 0.008606f, 1.77f, 272.8461f, 131.7806f, 260.2471f);
-        var pluto = CreateCelestialObject("Pluto", 0.01314192f, 0.001186f, CelestialObjectType.Planet, 5906.37627208103f, 0.24883f, 0.29914960832f, 1.98548656f, 1.9250982f, 0f);
+        var sol = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Sol", Mass.FromEarthMasses(332946), Distance.FromGigaMetres(0.6957), CelestialObjectType.Star),
+            null
+        );
+
+        var mercury = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Mercury", Mass.FromEarthMasses(0.0553), Distance.FromGigaMetres(0.00244), CelestialObjectType.Planet),
+            new OrbitData(Distance.FromGigaMetres(57.90917567), 0.205635, Angle.FromDegrees(7.0047), Angle.FromDegrees(29.1241), Angle.FromDegrees(48.3313), Angle.FromDegrees(168.6562))
+        );
+
+        var venus = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Venus", Mass.FromEarthMasses(0.8150), Distance.FromGigaMetres(0.006052), CelestialObjectType.Planet),
+            new OrbitData(Distance.FromGigaMetres(108.208925506684), 0.006773, Angle.FromDegrees(3.3946), Angle.FromDegrees(54.891), Angle.FromDegrees(76.6799), Angle.FromDegrees(48.0052))
+        );
+
+        var earth = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Earth", Mass.FromEarthMasses(1), Distance.FromGigaMetres(0.006371), CelestialObjectType.Planet),
+            new OrbitData(Distance.FromGigaMetres(149.597870691), 0.016709, Angle.FromDegrees(0), Angle.FromDegrees(282.9404), Angle.FromDegrees(0), Angle.FromDegrees(356.047))
+        );
+
+        var mars = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Mars", Mass.FromEarthMasses(0.107), Distance.FromGigaMetres(0.00339), CelestialObjectType.Planet),
+            new OrbitData(Distance.FromGigaMetres(227.93663722813), 0.093405, Angle.FromDegrees(1.8497), Angle.FromDegrees(286.5016), Angle.FromDegrees(49.5574), Angle.FromDegrees(18.6021))
+        );
+
+        var jupiter = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Jupiter", Mass.FromEarthMasses(317.8), Distance.FromGigaMetres(0.069911), CelestialObjectType.Planet),
+            new OrbitData(Distance.FromGigaMetres(778.412026728313), 0.048498, Angle.FromDegrees(1.303), Angle.FromDegrees(273.8777), Angle.FromDegrees(100.4542), Angle.FromDegrees(19.895))
+        );
+
+        var saturn = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Saturn", Mass.FromEarthMasses(95.2), Distance.FromGigaMetres(0.058232), CelestialObjectType.Planet),
+            new OrbitData(Distance.FromGigaMetres(1426.72541250233), 0.055546, Angle.FromDegrees(2.4886), Angle.FromDegrees(339.3939), Angle.FromDegrees(113.6634), Angle.FromDegrees(316.967))
+        );
+
+        var uranus = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Uranus", Mass.FromEarthMasses(14.5), Distance.FromGigaMetres(0.025362), CelestialObjectType.Planet),
+            new OrbitData(Distance.FromGigaMetres(2870.97221979699), 0.047318, Angle.FromDegrees(0.7733), Angle.FromDegrees(96.6612), Angle.FromDegrees(74.0005), Angle.FromDegrees(142.5905))
+        );
+
+        var neptune = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Neptune", Mass.FromEarthMasses(17.1), Distance.FromGigaMetres(0.024622), CelestialObjectType.Planet),
+            new OrbitData(Distance.FromGigaMetres(4498.25291049344), 0.008606, Angle.FromDegrees(1.77), Angle.FromDegrees(272.8461), Angle.FromDegrees(131.7806), Angle.FromDegrees(260.2471))
+        );
+
+        var pluto = CelestialObjectFactory.CreateCelestialObject(
+            new PhysicalData("Pluto", Mass.FromEarthMasses(0.0025), Distance.FromGigaMetres(0.001186), CelestialObjectType.Planet),
+            new OrbitData(Distance.FromGigaMetres(5906.37627208103), 0.24883, Angle.FromDegrees(0.29914960832), Angle.FromDegrees(1.98548656), Angle.FromDegrees(1.9250982), Angle.FromDegrees(0))
+        );
     }
 
     void CreateSkyBox()

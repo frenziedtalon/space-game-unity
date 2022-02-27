@@ -12,6 +12,12 @@ namespace Assets.Entities
             Id = Guid.NewGuid();
         }
 
+        // Awake is called when the class is instantiated or before the first frame on Startup
+        public virtual void Awake()
+        {
+
+        }
+
         // Start is called before the first frame update
         public virtual void Start()
         {

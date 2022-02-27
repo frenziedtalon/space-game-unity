@@ -3,25 +3,40 @@
   <Class Name="Assets.Entities.EntityBase">
     <Position X="2.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQCAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQCAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Assets\Entities\EntityBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Assets.CelestialObjects.CelestialObjectBase">
-    <Position X="2.5" Y="4.25" Width="1.5" />
+  <Class Name="Assets.CelestialObjects.BaseObjects.CelestialObjectBase" Collapsed="true">
+    <Position X="2.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAACAAQA=</HashCode>
-      <FileName>Assets\CelestialObjects\CelestialObjectBase.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAIAAAAAgAAACAAQA=</HashCode>
+      <FileName>Assets\CelestialObjects\BaseObjects\CelestialObjectBase.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Orientation="Left" Position="0.435" />
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Star">
-    <Position X="1.25" Y="0.5" Width="1.5" />
+  <Class Name="Assets.CelestialObjects.BaseObjects.OrbitingCelestialObjectBase" Collapsed="true">
+    <Position X="2.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAQIAAAACiAAgAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\CelestialObjects\BaseObjects\OrbitingCelestialObjectBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assets.CelestialObjects.Planet">
+    <Position X="5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAIAAAASiAAgAAAAAAAAAAAAAAAAAAAAAAAAACACEA=</HashCode>
+      <FileName>Assets\CelestialObjects\Planet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Assets.CelestialObjects.Star">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAIAAAASiAAgAAAAAAAAAAAAAAAAAAAAAAAAACACEA=</HashCode>
       <FileName>Assets\CelestialObjects\Star.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Orientation="Left" Position="0.321" />
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

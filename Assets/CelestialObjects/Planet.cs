@@ -1,4 +1,4 @@
-using Assets.CelestialObjects.BaseObjects;
+﻿using Assets.CelestialObjects.BaseObjects;
 using Assets.CelestialObjects.Interfaces;
 using Assets.Factories;
 using Assets.Measurements;
@@ -10,7 +10,7 @@ namespace Assets.CelestialObjects
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(SphereCollider))]
-    public class Star : CelestialObjectBase, ISphere
+    public class Planet : OrbitingCelestialObjectBase, ISphere
     {
         private bool _initialised { get; set; }
 
@@ -21,9 +21,10 @@ namespace Assets.CelestialObjects
         {
             _radius = radius;
         }
+
         public override void Awake()
         {
-            //Debug.Log("Star.Awake() was called");
+            //Debug.Log("Planet.Awake() was called");
 
             base.Awake();
         }
@@ -31,11 +32,11 @@ namespace Assets.CelestialObjects
         // TODO: This is a hack. Fix it when implementing orbits
         public void OnEnable()
         {
-            //Debug.Log("Star.OnEnable() was called");
+            //Debug.Log("Planet.OnEnable() was called");
 
             if (!_initialised)
             {
-                //Debug.Log("Star - Initialising");
+                //Debug.Log("Planet - Initialising");
 
                 SetupMass();
                 SetupInitialPosition();
@@ -46,7 +47,7 @@ namespace Assets.CelestialObjects
 
         public override void Start()
         {
-            //Debug.Log("Star.Start() was called");
+            //Debug.Log("Planet.Start() was called");
 
             base.Start();
         }
@@ -70,7 +71,7 @@ namespace Assets.CelestialObjects
 
         private void SetupInitialPosition()
         {
-            gameObject.transform.position = Vector3.zero; // Sun is rendered at (0, 0, 0)
+            gameObject.transform.position = new Vector3((float)Orbit.SemiMajorAxis.ScaledUnitsOrbit, 0, 0);
         }
 
         private void SetupAppearance()

@@ -1,4 +1,4 @@
-namespace Assets.Measurements
+﻿namespace Assets.Measurements
 {
     public class Distance
     {
@@ -11,6 +11,7 @@ namespace Assets.Measurements
         // Distances to nearby galaxies         megaparsecs
 
         private readonly double _kilometres;
+        private const double KilometresInGigaMetre = 1e6;
         private const double KilometresInAstronomicalUnit = 149597870.691;
 
         private const double KilometresInScaledUnitForOrbit = 1e5;
@@ -18,6 +19,7 @@ namespace Assets.Measurements
 
 
         public double Kilometres => _kilometres;
+        public double GigaMetres => _kilometres / KilometresInGigaMetre;
         public double AstronomicalUnits => _kilometres / KilometresInAstronomicalUnit;
 
         // TODO: Not ideal having these properties within this class
@@ -32,6 +34,11 @@ namespace Assets.Measurements
         public static Distance FromKilometres(double kilometres)
         {
             return new Distance(kilometres);
+        }
+
+        public static Distance FromGigaMetres(double gigametres)
+        {
+            return new Distance(gigametres * KilometresInGigaMetre);
         }
 
         public static Distance FromAstronomicalUnits(double astronomicalUnits)

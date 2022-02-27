@@ -1,15 +1,28 @@
-﻿namespace Assets.Measurements
+namespace Assets.Measurements
 {
     public class Distance
     {
+        // Astronomical range                   Typical units
+        // Distances to satellites              kilometres
+        // Distances to near-Earth objects      lunar distance
+        // Planetary distances                  astronomical units, gigametres
+        // Distances to nearby stars            parsecs, light-years
+        // Distances at the galactic scale      kiloparsecs
+        // Distances to nearby galaxies         megaparsecs
+
         private readonly double _kilometres;
         private const double KilometresInAstronomicalUnit = 149597870.691;
-        private const double KilometresInScaledUnit = 10e3;
+
+        private const double KilometresInScaledUnitForOrbit = 1e5;
+        private const double KilometresInScaledUnitForRadius = 1e4;
 
 
         public double Kilometres => _kilometres;
         public double AstronomicalUnits => _kilometres / KilometresInAstronomicalUnit;
-        public double ScaledUnits => _kilometres / KilometresInScaledUnit;
+
+        // TODO: Not ideal having these properties within this class
+        public double ScaledUnitsOrbit => _kilometres / KilometresInScaledUnitForOrbit;
+        public double ScaledUnitsRadius => _kilometres / KilometresInScaledUnitForRadius;
 
         private Distance(double kilometres)
         {

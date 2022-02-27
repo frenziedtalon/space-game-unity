@@ -10,7 +10,7 @@ namespace Assets.Measurements
         public double Kilograms => _kilograms;
         public double SolarMasses => _kilograms / KilogramsInSolarMass;
         public double EarthMasses => _kilograms / KilogramsInEarthMass;
-        public double ScaledUnits => _kilograms / KilogramsInScaledUnit;
+        public double ScaledUnits => EarthMasses;
 
         private Mass(double kilograms)
         {

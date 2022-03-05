@@ -17,6 +17,7 @@ namespace Assets.Factories
         }
     }
 
+    // URP shaders: https://github.com/Unity-Technologies/Graphics/tree/v8.3.1/com.unity.render-pipelines.universal/Shaders
     public enum ShaderType
     {
         URP_Lit,

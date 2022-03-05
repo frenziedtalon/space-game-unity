@@ -85,7 +85,7 @@ namespace Assets.CelestialObjects
             var meshRenderer = gameObject.GetComponent<MeshRenderer>();
             meshRenderer.material.color = Color.white;
 
-            Shader shader = Shader.Find("Diffuse");
+            Shader shader = ShaderFactory.Create(ShaderType.URP_Lit);
             meshRenderer.material.shader = shader;
         }
     }

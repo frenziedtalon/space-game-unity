@@ -14,9 +14,11 @@
         private const double KilometresInGigaMetre = 1e6;
         private const double KilometresInAstronomicalUnit = 149597870.691;
 
-        private const double KilometresInScaledUnitForOrbit = 1e5;
-        private const double KilometresInScaledUnitForRadius = 1e4;
+        private const double KilometresInScaledUnitForOrbit = KilometresInScaledUnitForRadius * 125;
+        private const double KilometresInScaledUnitForRadius = EarthRadiusInKilometres / ScaledEarthRadius;
 
+        private const double EarthRadiusInKilometres = 6371;
+        private const double ScaledEarthRadius = 100;
 
         public double Kilometres => _kilometres;
         public double GigaMetres => _kilometres / KilometresInGigaMetre;

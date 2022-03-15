@@ -71,7 +71,8 @@ namespace Assets.CelestialObjects
 
         private void SetupInitialPosition()
         {
-            gameObject.transform.position = new Vector3((float)Orbit.SemiMajorAxis.ScaledUnitsOrbit, 0, 0);
+            float semiMajorAxis = (float)Orbit.SemiMajorAxis.ScaledUnitsOrbit;
+            gameObject.transform.position = new Vector3(semiMajorAxis, 0, 0);
         }
 
         private void SetupAppearance()

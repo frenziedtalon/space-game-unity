@@ -17,6 +17,9 @@ namespace Assets.CelestialObjects
         private Distance _radius;
         public Distance Radius => _radius;
 
+        // Additional scaling to prevent star from overwhelming FOV
+        private const float _starRadiusScale = 0.5f;
+
         public void SetRadius(Distance radius)
         {
             _radius = radius;
@@ -75,7 +78,7 @@ namespace Assets.CelestialObjects
 
         private void SetupAppearance()
         {
-            float radius = (float)Radius.ScaledUnitsRadius;
+            float radius = (float)Radius.ScaledUnitsRadius * _starRadiusScale;
             gameObject.transform.localScale = new Vector3(radius, radius, radius);
 
             var mesh = gameObject.GetComponent<MeshFilter>();
@@ -84,7 +87,7 @@ namespace Assets.CelestialObjects
             var meshRenderer = gameObject.GetComponent<MeshRenderer>();
             meshRenderer.material.color = Color.white;
 
-            Shader shader = Shader.Find("Diffuse");
+            Shader shader = ShaderFactory.Create(ShaderType.URP_Lit);
             meshRenderer.material.shader = shader;
         }
     }

@@ -2,6 +2,8 @@ using Assets.CelestialObjects;
 using Assets.CelestialObjects.Classes;
 using Assets.CelestialObjects.Factories;
 using Assets.Measurements;
+using System;
+using System.Text;
 using UnityEngine;
 
 public class SolarSystem : MonoBehaviour
@@ -27,6 +29,7 @@ public class SolarSystem : MonoBehaviour
         //Debug.Log("SolarSystem.Start() was called");
 
         InitialVelocity();
+        PrintStats();
     }
 
     private void FixedUpdate()
@@ -141,5 +144,22 @@ public class SolarSystem : MonoBehaviour
         material.SetTexture("_DownTex", Resources.Load<Texture2D>("Skybox/SpaceSkybox01/skybox_ny")); // Down[-Y]
 
         RenderSettings.skybox = material;
+    }
+
+    void PrintStats()
+    {
+        StringBuilder builder = new StringBuilder();
+
+        builder.AppendLine(String.Format("{0,-20}\t{1,10:N0}\t{2,15:N0}", "Name", "Radius", "SemiMajorAxis"));
+
+        foreach (GameObject a in celestials)
+        {
+            float radius = a.transform.localScale.x;
+            float semiMajorAxis = a.transform.position.x;
+
+            builder.AppendLine(String.Format("{0,-20}\t{1,10:N0}\t\t{2,15:N0}", a.name, radius, semiMajorAxis));
+        }
+
+        Debug.Log(builder.ToString());
     }
 }
